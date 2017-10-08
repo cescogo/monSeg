@@ -1,9 +1,12 @@
 package control;
 
+import Modelo.SQLiteJDBC;
 import modelo.*;
 import java.util.ArrayList;
 import Vista.*;
+import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 
 /**
  *
@@ -20,27 +23,24 @@ public class Control {
     private ArrayList<TableSpace> tablespaces;
     private int nivel;
     private String rol;
-    
+    private SQLiteJDBC sqlite;
+
     public Control() {
         model = new Conexion();
+        sqlite = new SQLiteJDBC();
         model.conectar();
-//        sqlite.conectar();
-//        sqlite.query("drop table TB_SPACES");
-//        sqlite.conectar();
-//        sqlite.query("drop table Hist");
-//        sqlite.conectar();
-//        sqlite.query("CREATE TABLE TB_SPACES " + "(fecha TEXT not null,nombre TEXT NOT NULL, MB_TABLAS float not null, usado float NOT NULL,TasaTrans float not null,registros INT NOT NULL)");
-//        sqlite.conectar();
-//        sqlite.query("CREATE TABLE Hist " + "(fecha TEXT not null,nombre TEXT NOT NULL, uso INT not null, porcentaje INT NOT NULL)");
-//        sqlite.conectar();
-//        sqlite.query("drop table HWM");
-//        sqlite.conectar();
-//        sqlite.query("CREATE TABLE HWM " + "(nombre TEXT NOT NULL, HWM INT not null)");
+        sqlite.conectar();
+        try {
+            //sqlite.query("drop table nivel");
+            sqlite.query("CREATE TABLE nivel " + "(nivel INT not null, tabla TEXT NOT NULL, CONSTRAINT pk_nivel PRIMARY KEY (nivel,tabla))");
+        } catch (Exception e) {
+            //System.out.print(e);
+        }
     }
 
     public void iniciar() throws InterruptedException {
         ventana = new Principal(this);
-        ((Principal)ventana).init();
+        ((Principal) ventana).init();
     }
 
     public void iniciarTablespaces(int nivel) {
@@ -49,7 +49,7 @@ public class Control {
             tablespaces = model.getSegmentos();
             ventana.dispose();
             ventana = new Tablespaces(this);
-            ((Tablespaces)ventana).init(tablespaces);
+            ((Tablespaces) ventana).init(tablespaces);
         } catch (InterruptedException e) {
             System.out.print("No se pudieron cargar los nombres de los tablespaces");
         }
@@ -60,7 +60,7 @@ public class Control {
             tablas = model.getTable(tsp);
             ventana.dispose();
             ventana = new Tablas(this);
-            ((Tablas)ventana).init(tablas);
+            ((Tablas) ventana).init(tablas);
         } catch (Exception e) {
             System.out.print("Error cargando nombres de las tablas.");
         }
@@ -69,7 +69,7 @@ public class Control {
     public void iniciarNiveles() {
         ventana.dispose();
         ventana = new Niveles(this);
-        ((Niveles)ventana).init();
+        ((Niveles) ventana).init();
     }
 
     public void iniciarRoles() {
@@ -82,14 +82,28 @@ public class Control {
         if (accion.equals("Niveles")) {
             ventana.dispose();
             ventana = new Principal(this);
-            ((Principal)ventana).init();
+            ((Principal) ventana).init();
         } else if (accion.equals("Tablespaces")) {
             ventana.dispose();
             ventana = new Niveles(this);
-            ((Niveles)ventana).init();
-        }
-        else if (accion.equals("Tablas")) {
+            ((Niveles) ventana).init();
+        } else if (accion.equals("Tablas")) {
             iniciarTablespaces(nivel);
         }
     }
+
+    public void guardarModificacionesNiveles(HashMap<String,Boolean> acciones) {
+        sqlite.insertarElementosNivel(nivel, acciones);
+    }
+
+    public HashMap<String,String> obtenerModificacionesNiveles() {
+        HashMap<String,String> map = new HashMap<>();
+        try {
+            map = sqlite.obtenerElementosNivelPorNivel(nivel);
+        } catch (Exception e) {
+            System.out.print("No se pudo ejecutar.");
+        }
+        return map;
+    }
+
 }
