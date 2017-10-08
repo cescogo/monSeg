@@ -35,6 +35,7 @@ public class Principal extends JFrame implements ActionListener {
         jPanel.add(panel, BorderLayout.CENTER);
         add(jPanel, BorderLayout.CENTER);
         pack();
+        this.setSize(200, 150);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
