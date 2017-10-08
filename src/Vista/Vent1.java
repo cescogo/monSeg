@@ -117,9 +117,7 @@ public class Vent1 extends JFrame implements ActionListener  {
         
        
         
-        GridBagConstraints gc = new GridBagConstraints();
-
-        gc.insets=new Insets(10,10,0,50);
+  
         
       
        
