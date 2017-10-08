@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.text.DecimalFormat;
@@ -12,50 +7,52 @@ import java.text.DecimalFormat;
  * @author cesar
  */
 public class TableSpace {
+
     private String nombre;
     private String fecha;
     private float tam_total;
     private float uso;
-    private float free; 
+    private float free;
     private float tasatrans;
     DecimalFormat format;
 
     public TableSpace() {
-         this.nombre = "";
+        this.nombre = "";
         this.tam_total = 0;
         this.uso = 0;
-        this.free= 0;
-        fecha="";
+        this.free = 0;
+        fecha = "";
     }
 
     public TableSpace(String nombre, float tam_total, float free) {
-        this.fecha="";
+        this.fecha = "";
         this.nombre = nombre;
         this.tam_total = tam_total;
-        this.uso = tam_total-free;
-        this.free= free;
+        this.uso = tam_total - free;
+        this.free = free;
         format = new DecimalFormat("00.00");
     }
-    
-     public TableSpace(String fecha,String nombre, float size,float uso,float tasatran, int regis) {
-        this.fecha=fecha;
+
+    public TableSpace(String fecha, String nombre, float size, float uso, float tasatran, int regis) {
+        this.fecha = fecha;
         this.nombre = nombre;
         this.tam_total = size;
         this.uso = uso;
-        this.free= regis;
-        this.tasatrans=tasatran;
+        this.free = regis;
+        this.tasatrans = tasatran;
         format = new DecimalFormat("00.00");
     }
- public TableSpace(String fecha,String nombre, float uso,float size) {
-        this.fecha=fecha;
+
+    public TableSpace(String fecha, String nombre, float uso, float size) {
+        this.fecha = fecha;
         this.nombre = nombre;
         this.tam_total = size;
         this.uso = uso;
-        this.free= 0;
-        this.tasatrans=0;
+        this.free = 0;
+        this.tasatrans = 0;
         format = new DecimalFormat("00.00");
     }
- 
+
     public float getTasatrans() {
         return tasatrans;
     }
@@ -64,7 +61,6 @@ public class TableSpace {
         this.tasatrans = tasatrans;
     }
 
-     
     public String getFecha() {
         return fecha;
     }
@@ -105,19 +101,12 @@ public class TableSpace {
         this.free = free;
     }
 
-
-    
-    public float porcent_use()
-    {
-        return Float.valueOf(format.format((uso/tam_total)*100).replaceAll(",", "."));
-    }
-    
-    public float porcent_free()
-    {
-        return Float.valueOf(format.format((free/tam_total)*100).replaceAll(",", "."));
+    public float porcent_use() {
+        return Float.valueOf(format.format((uso / tam_total) * 100).replaceAll(",", "."));
     }
 
-    
- 
-    
+    public float porcent_free() {
+        return Float.valueOf(format.format((free / tam_total) * 100).replaceAll(",", "."));
+    }
+
 }

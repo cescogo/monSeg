@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import control.Control;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -19,15 +13,17 @@ import java.util.ArrayList;
  * @author cesar
  */
 public class Conexion {
-///parametros de configuracion de usuario
+
+    //parametros de configuracion de usuario
+    //Descargar ojdbc6.jar e incluirlo en la libreria
     private Connection conexion;
-    static String url = "jdbc:oracle:thin:@localhost:1521/XE"; //Descargar ojdbc6.jar e incluirlo en la libreria
+    static String url = "jdbc:oracle:thin:@localhost:1521/XE";
     static String user = "system";
     static String password = "root";
     private boolean exito;
     private Control gestor;
 
-    private ArrayList<String> resultados = new ArrayList<String>();
+    private ArrayList<String> resultados = new ArrayList<>();
 
     /*Metodos*/
     public String getUser() {
@@ -65,9 +61,8 @@ public class Conexion {
             conexion = DriverManager.getConnection(url, user, password);
             System.out.println("Conectado");
             exito = true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-
             System.out.println(e.getMessage());
             exito = false;
         }
@@ -76,71 +71,52 @@ public class Conexion {
     // se obtienen los segmentos de la base de datos
     public ArrayList<TableSpace> getSegmentos() throws InterruptedException {
         ArrayList<TableSpace> vec = new ArrayList<>();
-
         try {
             Statement stm = conexion.createStatement();
             ResultSet rs = stm.executeQuery("select tablespace_name from dba_tables where tablespace_name is not null AND tablespace_name != 'SYSTEM' group by tablespace_name");
-
-            getColumnNames(rs);
             while (rs.next()) {
-
-                 //Aqui deberia jalar el nombre de la columna
-
-                vec.add(new TableSpace(rs.getString("TABLESPACE_NAME"),0,0));
-
+                //Aqui deberia jalar el nombre de la columna
+                vec.add(new TableSpace(rs.getString("TABLESPACE_NAME"), 0, 0));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-
         }
-
         return vec;
     }
+
     // se obtienen las tablas de cada tablespace
     // se obtienen las tablas de la base de datos
-// meter aqui el query de contar los indices de una tabla
-    public  ArrayList<Table> getTable(String tablespace) throws SQLException  {
+    // meter aqui el query de contar los indices de una tabla
+    public ArrayList<Table> getTable(String tablespace) throws SQLException {
         ArrayList<Table> vec = new ArrayList<>();
         Statement stm;
-        ResultSet rs, rs2,rs3;
+        ResultSet rs;
         String a, b;
-        Table table;
-        TableSpace registro;
-        int indices=0;
-        int mb=0,regs=0,index=0,aux=0;
-       
-            stm = conexion.createStatement();
-            rs = stm.executeQuery("select TABLE_NAME,OWNER from all_tables where tablespace_name = '" + tablespace + "'");
-            getColumnNames(rs);
-            while (rs.next()) {
-                a = rs.getString("TABLE_NAME");            
-                b = rs.getString("OWNER");
-                vec.add(new Table(a, b));
-            }
-          
-        
+        stm = conexion.createStatement();
+        rs = stm.executeQuery("select TABLE_NAME,OWNER from all_tables where tablespace_name = '" + tablespace + "'");
+        //getColumnNames(rs);
+        while (rs.next()) {
+            a = rs.getString("TABLE_NAME");
+            b = rs.getString("OWNER");
+            vec.add(new Table(a, b));
+        }
         return vec;
     }
-//obtener los byte
 
-  
-   
-
+    //obtener los byte
     /*Devuelve columna*/
-    public static void getColumnNames(ResultSet rs) throws SQLException {
+    /*public static void getColumnNames(ResultSet rs) throws SQLException {
         if (rs == null) {
             return;
         }
         // get result set meta data
         ResultSetMetaData rsMetaData = rs.getMetaData();
         int numberOfColumns = rsMetaData.getColumnCount();
-
         // get the column names; column indexes start from 1
         for (int i = 1; i < numberOfColumns + 1; i++) {
             String columnName = rsMetaData.getColumnName(i);
             // Get the name of the column's table name
             String tableName = rsMetaData.getTableName(i);
-
         }
-    }
+    }*/
 }

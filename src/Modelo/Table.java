@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 /**
@@ -54,8 +49,8 @@ public class Table {
         this.count = count;
         this.owner = owner;
     }
-    
-    public Table(String name,String owner) {
+
+    public Table(String name, String owner) {
         this.name = name;
         this.owner = owner;
     }
