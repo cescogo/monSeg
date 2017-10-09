@@ -25,12 +25,13 @@ public class Niveles extends JFrame implements ActionListener{
 
     private Control control;
 
+
     public Niveles(Control control) {
         super("Niveles");
         this.control = control;
     }
 
-    public void init(ArrayList<Colum_Tab> colum) {
+    public void init(ArrayList<String> colum) {
         JPanel panel = new JPanel(), jPanel1 = new JPanel(), jPanel2 = new JPanel();
         JTable tabla = new JTable();
         Tabla table = new Tabla("Nombre columna");
@@ -40,9 +41,7 @@ public class Niveles extends JFrame implements ActionListener{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    int row = tabla.getSelectedRow();
-                    int colum = tabla.getSelectedColumn();
-                    control.iniciarTablas(tabla.getValueAt(row, colum).toString());
+                  
                 }
             }
         });
@@ -51,7 +50,7 @@ public class Niveles extends JFrame implements ActionListener{
         for (int i = 0; i < colum.size(); i++) {
             table.addRow(
                     new Object[]{
-                        colum.get(i).getNombre(),});
+                        colum.get(i)});
         }
         JButton volver = new JButton("Volver");
         volver.addActionListener(this);
@@ -70,7 +69,7 @@ public class Niveles extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       control.atras("Tablespaces");
+       control.atras("columnas");
     }
 
     public void init(String colum) {

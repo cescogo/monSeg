@@ -103,8 +103,8 @@ public class Conexion {
         return vec;
     }
     
-    public  ArrayList<Colum_Tab> getColonmas(String table) throws SQLException {
-        ArrayList<Colum_Tab> vec = new ArrayList<>();
+    public  ArrayList<String> getColonmas(String table) throws SQLException {
+        ArrayList<String> vec = new ArrayList<>();
         Statement stm;
         ResultSet rs;
         String a;
@@ -112,9 +112,9 @@ public class Conexion {
         rs = stm.executeQuery("select column_name from all_tab_columns where table_name = '" + table + "'");
         //getColumnNames(rs);
         while (rs.next()) {
-            a = rs.getString("TABLE_NAME");
+            a = rs.getString("COLUMN_NAME");
            
-            vec.add(new Colum_Tab(a));
+            vec.add(a);
         }
         return vec;
     }

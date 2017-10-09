@@ -50,7 +50,7 @@ public class Tablespaces extends JFrame implements ActionListener {
         for (int i = 0; i < TaSpa.size(); i++) {
             table.addRow(
                     new Object[]{
-                        TaSpa.get(i).getNombre(),});
+                        TaSpa.get(i).getNombre()});
         }
         JButton volver = new JButton("Volver");
         volver.addActionListener(this);

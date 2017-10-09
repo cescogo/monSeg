@@ -21,7 +21,7 @@ public class Control {
     //Otros
     private ArrayList<Table> tablas;
     private ArrayList<TableSpace> tablespaces;
-    private ArrayList<Colum_Tab> colum;
+    private String TSP;
     private int nivel=0;
     private String rol;
     private SQLiteJDBC sqlite;
@@ -59,6 +59,7 @@ public class Control {
     public void iniciarTablas(String tsp) {
         try {
             tablas = model.getTable(tsp);
+            TSP=tsp;
             ventana.dispose();
             ventana = new Tablas(this);
             ((Tablas) ventana).init(tablas);
@@ -71,7 +72,7 @@ public class Control {
       try {
         ventana.dispose();
         ventana = new Niveles(this);
-        colum= model.getColonmas(colu);
+        ArrayList<String> colum= model.getColonmas(colu);
         ((Niveles) ventana).init(colum);
         } catch (Exception e) {
             System.out.print("Error cargando nombres de las columnas.");
@@ -85,11 +86,14 @@ public class Control {
     }
 
     public void atras(String accion) {
-        if (accion.equals("Niveles")) {
+        if (accion.equals("columnas")) {
+            ventana.dispose();
+            iniciarTablas(TSP);
+            
            
         } else if (accion.equals("Tablespaces")) {
             ventana.dispose();
-            ventana = new Niveles(this);
+            ventana = new Principal(this);
             ((Principal) ventana).init();
         } else if (accion.equals("Tablas")) {
             iniciarTablespaces(nivel);
