@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -24,9 +26,10 @@ import javax.swing.JTable;
  *
  * @author Casa
  */
-public class Niveles extends JFrame implements ActionListener{
+public class Niveles extends JFrame implements ActionListener,ItemListener{
 
     private Control control;
+    private JCheckBox[] nivel;
 
 
     public Niveles(Control control) {
@@ -38,7 +41,7 @@ public class Niveles extends JFrame implements ActionListener{
         JPanel panel = new JPanel(), jPanel1 = new JPanel(), jPanel2 = new JPanel(), jPanel3 = new JPanel();
         JPanel[] rowpanel = new JPanel[5];
         JTable tabla = new JTable();
-        JCheckBox[] nivel = new JCheckBox[5];
+         nivel = new JCheckBox[5];
         Tabla table = new Tabla("Nombre columna");
         tabla.setModel(table);
         jPanel3.setVisible(false);
@@ -47,7 +50,9 @@ public class Niveles extends JFrame implements ActionListener{
         for(int i = 0; i < 5; i++) 
             {
             rowpanel[i] = new JPanel();
-            nivel[i] = new JCheckBox("Nivel "+(i+1));
+           JCheckBox box =new JCheckBox("Nivel "+(i+1));
+            box.addItemListener((ItemListener) this);
+            nivel[i] = box;
             rowpanel[i].add(nivel[i]);
             jPanel3.add(rowpanel[i]);      
             }
@@ -56,6 +61,7 @@ public class Niveles extends JFrame implements ActionListener{
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                   jPanel3.setVisible(true);
+//                  nivel[0].setSelected(true);
                 }
             }
         });
@@ -67,6 +73,7 @@ public class Niveles extends JFrame implements ActionListener{
                         colum.get(i)});
         }
         JButton volver = new JButton("Volver"),guardar = new JButton("Guardar");
+        guardar.addActionListener(this);
         volver.addActionListener(this);
         panel.setLayout(new BorderLayout());
         jPanel1.setLayout(new BorderLayout());
@@ -90,11 +97,23 @@ public class Niveles extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("Guardar"))
+        {
+            for(int i=0;i<nivel.length;i++)
+           if(nivel[i].isSelected())
+           {
+               System.out.println(nivel[i].getActionCommand());
+           }
+        }
+        else{
        control.atras("columnas");
+        }
     }
 
-    public void init(String colum) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public void itemStateChanged(ItemEvent e) {
     }
+
+  
 
 }
