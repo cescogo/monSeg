@@ -45,7 +45,7 @@ public class Principal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Niveles")) {
-            control.iniciarNiveles();
+            control.iniciarTablespaces(0);
         } else {
             control.iniciarRoles();
         }

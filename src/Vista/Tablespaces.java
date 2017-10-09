@@ -22,7 +22,7 @@ import modelo.TableSpace;
 public class Tablespaces extends JFrame implements ActionListener {
 
     private Control control;
-    private ArrayList<TableSpace> TaSpa;
+ 
 
     public Tablespaces(Control control) {
         super("Tablespaces");
@@ -34,7 +34,7 @@ public class Tablespaces extends JFrame implements ActionListener {
         JTable tabla = new JTable();
         Tabla table = new Tabla("Nombre tablespaces");
         tabla.setModel(table);
-        this.TaSpa = TaSpa;
+        
         tabla.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

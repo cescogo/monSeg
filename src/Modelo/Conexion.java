@@ -102,21 +102,21 @@ public class Conexion {
         }
         return vec;
     }
-
-    //obtener los byte
-    /*Devuelve columna*/
-    /*public static void getColumnNames(ResultSet rs) throws SQLException {
-        if (rs == null) {
-            return;
+    
+    public  ArrayList<Colum_Tab> getColonmas(String table) throws SQLException {
+        ArrayList<Colum_Tab> vec = new ArrayList<>();
+        Statement stm;
+        ResultSet rs;
+        String a;
+        stm = conexion.createStatement();
+        rs = stm.executeQuery("select column_name from all_tab_columns where table_name = '" + table + "'");
+        //getColumnNames(rs);
+        while (rs.next()) {
+            a = rs.getString("TABLE_NAME");
+           
+            vec.add(new Colum_Tab(a));
         }
-        // get result set meta data
-        ResultSetMetaData rsMetaData = rs.getMetaData();
-        int numberOfColumns = rsMetaData.getColumnCount();
-        // get the column names; column indexes start from 1
-        for (int i = 1; i < numberOfColumns + 1; i++) {
-            String columnName = rsMetaData.getColumnName(i);
-            // Get the name of the column's table name
-            String tableName = rsMetaData.getTableName(i);
-        }
-    }*/
+        return vec;
+    }
+  
 }

@@ -38,7 +38,7 @@ public class Tablas extends JFrame implements ActionListener {
         HashMap<String, String> map;
         Boolean aux;
         JPanel panel = new JPanel(), jPanel1 = new JPanel(), jPanel2 = new JPanel(), jPanel3 = new JPanel();
-        Tabla table = new Tabla("Nombre tablas", "Accesible");
+        Tabla table = new Tabla("Nombre tablas");
         JButton volver = new JButton("Volver"), guardar = new JButton("Guardar");
         tabla.setModel(table);
         tabla.setDefaultRenderer(Object.class, new Render());
@@ -47,21 +47,22 @@ public class Tablas extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     String tab;
-                    String val;
-                    Boolean valor = false;
+//                    String val;
+//                    Boolean valor = false;
                     int row = tabla.getSelectedRow();
                     int colum = tabla.getSelectedColumn();
-                    if (colum == 1) {
-                        tab = tabla.getValueAt(row, 0).toString();
-                        val = tabla.getValueAt(row, 1).toString();
-                        if(val.equals("true"))
-                            valor = true;
-                        if (acciones.get(tab) != null) {
-                            acciones.replace(tab,valor);
-                        } else {
-                            acciones.put(tab, valor);
-                        }
-                    }
+                      tab = tabla.getValueAt(row, 0).toString();
+                      control.iniciarNiveles(tab);
+                        
+//                        val = tabla.getValueAt(row, 1).toString();
+//                        if(val.equals("true"))
+//                            valor = true;
+//                        if (acciones.get(tab) != null) {
+//                            acciones.replace(tab,valor);
+//                        } else {
+//                            acciones.put(tab, valor);
+//                        }
+                    
                 }
             }
         });

@@ -21,7 +21,8 @@ public class Control {
     //Otros
     private ArrayList<Table> tablas;
     private ArrayList<TableSpace> tablespaces;
-    private int nivel;
+    private ArrayList<Colum_Tab> colum;
+    private int nivel=0;
     private String rol;
     private SQLiteJDBC sqlite;
 
@@ -44,7 +45,7 @@ public class Control {
     }
 
     public void iniciarTablespaces(int nivel) {
-        this.nivel = nivel;
+        //this.nivel = nivel;
         try {
             tablespaces = model.getSegmentos();
             ventana.dispose();
@@ -66,40 +67,43 @@ public class Control {
         }
     }
 
-    public void iniciarNiveles() {
+    public void iniciarNiveles(String colu) {
+      try {
         ventana.dispose();
         ventana = new Niveles(this);
-        ((Niveles) ventana).init();
+        colum= model.getColonmas(colu);
+        ((Niveles) ventana).init(colum);
+        } catch (Exception e) {
+            System.out.print("Error cargando nombres de las columnas.");
+        }
     }
 
     public void iniciarRoles() {
-        ventana.dispose();
-        ventana = new Roles(this);
+//        ventana.dispose();
+//        ventana = new Roles(this);
         //roles.init();
     }
 
     public void atras(String accion) {
         if (accion.equals("Niveles")) {
-            ventana.dispose();
-            ventana = new Principal(this);
-            ((Principal) ventana).init();
+           
         } else if (accion.equals("Tablespaces")) {
             ventana.dispose();
             ventana = new Niveles(this);
-            ((Niveles) ventana).init();
+            ((Principal) ventana).init();
         } else if (accion.equals("Tablas")) {
             iniciarTablespaces(nivel);
         }
     }
 
     public void guardarModificacionesNiveles(HashMap<String,Boolean> acciones) {
-        sqlite.insertarElementosNivel(nivel, acciones);
+//        sqlite.insertarElementosNivel(nivel, acciones);
     }
 
     public HashMap<String,String> obtenerModificacionesNiveles() {
         HashMap<String,String> map = new HashMap<>();
         try {
-            map = sqlite.obtenerElementosNivelPorNivel(nivel);
+           // map = sqlite.obtenerElementosNivelPorNivel(nivel);
         } catch (Exception e) {
             System.out.print("No se pudo ejecutar.");
         }
