@@ -72,7 +72,7 @@ public class Control {
       try {
         ventana.dispose();
         ventana = new Niveles(this);
-        ArrayList<String> colum= model.getColonmas(colu);
+        ArrayList<String> colum= model.getColumnas(colu);
         ((Niveles) ventana).init(colum);
         } catch (Exception e) {
             System.out.print("Error cargando nombres de las columnas.");

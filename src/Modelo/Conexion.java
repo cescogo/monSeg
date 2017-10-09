@@ -103,8 +103,9 @@ public class Conexion {
         return vec;
     }
     
-    public  ArrayList<String> getColonmas(String table) throws SQLException {
-        ArrayList<String> vec = new ArrayList<>();
+    public ArrayList<String> getColumnas(String table) throws SQLException {
+//        ArrayList<ColumnaTabla> colum = new ArrayList<>();
+        ArrayList<String> aux = new ArrayList<>();
         Statement stm;
         ResultSet rs;
         String a;
@@ -114,9 +115,10 @@ public class Conexion {
         while (rs.next()) {
             a = rs.getString("COLUMN_NAME");
            
-            vec.add(a);
+//            colum.add(new ColumnaTabla(a));
+              aux.add(a);
         }
-        return vec;
+        return aux;
     }
   
 }
