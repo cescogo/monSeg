@@ -39,7 +39,7 @@ public class Tablas extends JFrame implements ActionListener {
         Boolean aux;
         JPanel panel = new JPanel(), jPanel1 = new JPanel(), jPanel2 = new JPanel(), jPanel3 = new JPanel();
         Tabla table = new Tabla("Nombre tablas");
-        JButton volver = new JButton("Volver"), guardar = new JButton("Guardar");
+        JButton volver = new JButton("Volver");
         tabla.setModel(table);
         tabla.setDefaultRenderer(Object.class, new Render());
         tabla.addMouseListener(new MouseAdapter() {
@@ -81,15 +81,12 @@ public class Tablas extends JFrame implements ActionListener {
                     });
         }
         volver.addActionListener(this);
-        guardar.addActionListener(this);
         panel.setLayout(new BorderLayout());
         jPanel1.setLayout(new BorderLayout());
         jPanel1.add(desplazamientoTabla, BorderLayout.CENTER);
-        jPanel2.add(volver);
-        jPanel3.add(guardar);
+        jPanel2.add(volver);      
         panel.add(jPanel1, BorderLayout.CENTER);
-        panel.add(jPanel2, BorderLayout.NORTH);
-        panel.add(jPanel3, BorderLayout.SOUTH);
+        panel.add(jPanel2, BorderLayout.SOUTH);
         add(panel, BorderLayout.CENTER);
         setSize(500, 300);
         setLocationRelativeTo(null);
