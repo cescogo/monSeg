@@ -10,10 +10,15 @@ package Modelo;
  * @author cesar
  */
 public class ColumnaTabla {
-    private String nombre;
+    private String nombre,tsp,tabla;
+    private boolean[] niveles;
+    
 
-    public ColumnaTabla(String nombre) {
+    public ColumnaTabla(String nombre, String tsp,String tab) {
         this.nombre = nombre;
+        niveles= new boolean[5];
+        this.tsp=tsp;
+        tabla=tab;
     }
 
     public String getNombre() {
@@ -22,6 +27,30 @@ public class ColumnaTabla {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getTsp() {
+        return tsp;
+    }
+
+    public void setTsp(String tsp) {
+        this.tsp = tsp;
+    }
+
+    public String getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(String tabla) {
+        this.tabla = tabla;
+    }
+
+    public boolean getNiveles(int pos) {
+        return niveles[pos];
+    }
+
+    public void setNiveles(int pos, boolean niv) {
+        niveles[pos] = niv;
     }
     
     
