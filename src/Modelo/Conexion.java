@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import Modelo.ColumnaTabla;
 /**
  *
  * @author cesar
@@ -104,7 +104,7 @@ public class Conexion {
     }
     
     public ArrayList<String> getColumnas(String table) throws SQLException {
-//        ArrayList<ColumnaTabla> colum = new ArrayList<>();
+     ArrayList<ColumnaTabla> colum = new ArrayList<>();
         ArrayList<String> aux = new ArrayList<>();
         Statement stm;
         ResultSet rs;
